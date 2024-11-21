@@ -1,9 +1,9 @@
 const cacheName = "DefaultCompany-TelegramApp-0.1.0";
 const contentToCache = [
     "Build/TelegramMiniApp.loader.js",
-    "Build/TelegramMiniApp.framework.js.br",
-    "Build/TelegramMiniApp.data.br",
-    "Build/TelegramMiniApp.wasm.br",
+    "Build/TelegramMiniApp.framework.js",
+    "Build/TelegramMiniApp.data",
+    "Build/TelegramMiniApp.wasm",
     "TemplateData/style.css"
 
 ];
