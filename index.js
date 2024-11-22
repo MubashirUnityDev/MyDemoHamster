@@ -39,9 +39,9 @@ window.addEventListener("load", function () {
   var buildUrl = "Build";
   var loaderUrl = buildUrl + "/TelegramMiniApp.loader.js";
   var config = {
-    dataUrl: buildUrl + "/TelegramMiniApp.data",
-    frameworkUrl: buildUrl + "/TelegramMiniApp.framework.js",
-    codeUrl: buildUrl + "/TelegramMiniApp.wasm",
+    dataUrl: buildUrl + "/TelegramMiniApp.data.unityweb",
+    frameworkUrl: buildUrl + "/TelegramMiniApp.framework.js.unityweb",
+    codeUrl: buildUrl + "/TelegramMiniApp.wasm.unityweb",
     streamingAssetsUrl: "StreamingAssets",
     companyName: "DefaultCompany",
     productName: "TelegramApp",
