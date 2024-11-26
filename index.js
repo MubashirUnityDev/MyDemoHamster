@@ -37,11 +37,11 @@ window.addEventListener("load", function () {
   }
 
   var buildUrl = "Build";
-  var loaderUrl = buildUrl + "/TelegramMiniApp.loader.js";
+  var loaderUrl = buildUrl + "/MyDemoHamster.loader.js";
   var config = {
-    dataUrl: buildUrl + "/TelegramMiniApp.data.unityweb",
-    frameworkUrl: buildUrl + "/TelegramMiniApp.framework.js.unityweb",
-    codeUrl: buildUrl + "/TelegramMiniApp.wasm.unityweb",
+    dataUrl: buildUrl + "/MyDemoHamster.data.unityweb",
+    frameworkUrl: buildUrl + "/MyDemoHamster.framework.js.unityweb",
+    codeUrl: buildUrl + "/MyDemoHamster.wasm.unityweb",
     streamingAssetsUrl: "StreamingAssets",
     companyName: "DefaultCompany",
     productName: "TelegramApp",
