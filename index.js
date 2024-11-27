@@ -64,7 +64,6 @@ window.addEventListener("load", function () {
     document.getElementsByTagName('head')[0].appendChild(meta);
   }
 
-  canvas.style.background = "url('" + buildUrl + "/MyDemoHamster.jpg') center / cover";
   loadingBar.style.display = "block";
 
   var script = document.createElement("script");
