@@ -38,16 +38,24 @@
       }
     </style>
     <script>
-      //You can use all "https://telegram.org/js/telegram-web-app.js" methods here! 
       window.addEventListener('load', function() {
         if (Telegram.WebApp) {
           Telegram.WebApp.ready();
-          // alert(`Telegram webAppVersion: ${window.Telegram.WebApp.version}`)
+          
+          // Debug logs
+          console.log("Telegram WebApp version:", Telegram.WebApp.version);
+          console.log("Complete initData:", Telegram.WebApp.initDataUnsafe);
+          console.log("Start Parameter:", Telegram.WebApp.initDataUnsafe.start_param);
+          console.log("Start App Parameter:", Telegram.WebApp.initDataUnsafe.start_app);
+          console.log("Query ID:", Telegram.WebApp.initDataUnsafe.query_id);
+          
+          // Optional: Log the raw init data string
+          console.log("Raw Init Data:", Telegram.WebApp.initData);
+          
           window.Telegram.WebApp.expand();
-          // window.Telegram.WebApp.enableClosingConfirmation();
           window.Telegram.WebApp.disableVerticalSwipes();
         } else {
-          // alert("Telegram WebApp API is not available.");
+          console.log("Telegram WebApp API is not available.");
         }
       });
     </script>
