@@ -1,55 +1,94 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | TelegramApp</title>
-    <link rel="shortcut icon" href="TemplateData/favicon.ico">
-    <link rel="stylesheet" href="TemplateData/style.css">
-    <link rel="manifest" href="manifest.webmanifest">
+    <title>Unity XNFT | TelegramApp<</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
   </head>
-  <body>
-    <div id="unity-container">
-      <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
+  <body style="text-align: center; padding: 0; border: 0; margin: 0;">
+    <script src="Build/MyDemoHamster.loader.js"></script>
+    <div id="unity-container" class="unity-desktop">
+      <canvas id="unity-canvas" width=960 height=600></canvas>
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
         <div id="unity-progress-bar-empty">
           <div id="unity-progress-bar-full"></div>
         </div>
       </div>
-      <div id="unity-warning"> </div>
     </div>
-    <script src="index.js"></script>
-    <!-- BEGIN WEBGL FILE BROWSER LIB -->
-    <style>
-      #fb_popup_background.highlight {
-        border: 3px dashed #ccc;
-        border-radius: 26px;
-        border-color: aquamarine;
-      }
-      .disableSelection {
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        -o-user-select: none;
-        user-select: none;
-      }
-    </style>
     <script>
-      //You can use all "https://telegram.org/js/telegram-web-app.js" methods here! 
-      window.addEventListener('load', function() {
-        if (Telegram.WebApp) {
-          Telegram.WebApp.ready();
-          // alert(`Telegram webAppVersion: ${window.Telegram.WebApp.version}`)
-          window.Telegram.WebApp.expand();
-          // window.Telegram.WebApp.enableClosingConfirmation();
-          window.Telegram.WebApp.disableVerticalSwipes();
-        } else {
-          // alert("Telegram WebApp API is not available.");
+      var container = document.querySelector("#unity-container");
+      var canvas = document.querySelector("#unity-canvas");
+      var loadingBar = document.querySelector("#unity-loading-bar");
+      var progressBarFull = document.querySelector("#unity-progress-bar-full");
+      var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+      var warningBanner = document.querySelector("#unity-warning");
+      
+      // Shows a temporary message banner/ribbon for a few seconds, or
+      // a permanent error message on top of the canvas if type=='error'.
+      // If type=='warning', a yellow highlight color is used.
+      // Modify or remove this function to customize the visually presented
+      // way that non-critical warnings and error messages are presented to the
+      // user.
+      function unityShowBanner(msg, type) {
+        function updateBannerVisibility() {
+          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
         }
-      });
+        var div = document.createElement('div');
+        div.innerHTML = msg;
+        warningBanner.appendChild(div);
+        if (type == 'error') div.style = 'background: red; padding: 10px;';
+        else {
+          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+          setTimeout(function() {
+            warningBanner.removeChild(div);
+            updateBannerVisibility();
+          }, 5000);
+        }
+        updateBannerVisibility();
+      }
+      
+      var buildUrl = "Build";
+      var loaderUrl = buildUrl + "/MyDemoHamster.loader.js";
+      var config = {
+        dataUrl: "Build/MyDemoHamster.data.unityweb",
+        frameworkUrl: "Build/MyDemoHamster.framework.js.unityweb",
+        codeUrl: "Build/MyDemoHamster.wasm.unityweb",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "DefaultCompany",
+        productName: "TelegramApp",
+        productVersion: "0.1.0",
+        showBanner: unityShowBanner,
+      };
+      
+      // Mobile device style: fill the whole browser client area with the game canvas:
+      var meta = document.createElement('meta');
+      meta.name = 'viewport';
+      meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+      document.getElementsByTagName('head')[0].appendChild(meta);
+
+      var canvas = document.querySelector("#unity-canvas");
+      canvas.style.width = "100%";
+      canvas.style.height = "100%";
+      canvas.style.position = "fixed";
+
+      document.body.style.textAlign = "left";
+
+      loadingBar.style.display = "block";
+
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          progressBarFull.style.width = 100 * progress + "%";
+        }).then((unityInstance) => {
+          loadingBar.style.display = "none";
+        }).catch((message) => {
+          alert(message);
+        });
+      };
+      document.body.appendChild(script);
     </script>
   </body>
 </html>
